@@ -101,7 +101,7 @@
    "fieldname": "after_installation_site_condition",
    "fieldtype": "Select",
    "label": "After Installation Site Condition",
-   "options": "Fair\nGood\nVery Good\nExcellent"
+   "options": "\nFair\nGood\nVery Good\nExcellent"
   },
   {
    "fieldname": "after_installation_site_condition_remark",
@@ -116,7 +116,7 @@
    "fieldname": "installation_team_behavior_and_appearance",
    "fieldtype": "Select",
    "label": "Installation Team Behavior and Appearance",
-   "options": "Fair\nGood\nVery Good\nExcellent"
+   "options": "\nFair\nGood\nVery Good\nExcellent"
   },
   {
    "fieldname": "installation_team_behavior_and_appearance_remark",
@@ -127,13 +127,13 @@
    "fieldname": "closet_status_design_expectations",
    "fieldtype": "Select",
    "label": "Closet Status (Design Expectations)",
-   "options": "Fair\nGood\nVery Good\nExcellent"
+   "options": "\nFair\nGood\nVery Good\nExcellent"
   },
   {
    "fieldname": "closet_status_finish_and_quality_expectations",
    "fieldtype": "Select",
    "label": "Closet Status Finish & Quality Expectations",
-   "options": "Fair\nGood\nVery Good\nExcellent"
+   "options": "\nFair\nGood\nVery Good\nExcellent"
   },
   {
    "fieldname": "closet_status_finish_and_quality_expectations_remark",
@@ -175,7 +175,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-24 14:39:20.155584",
+ "modified": "2026-01-24 16:12:27.030957",
  "modified_by": "Administrator",
  "module": "Customer Feedback",
  "name": "Site Report",

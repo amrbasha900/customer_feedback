@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Creative Closets | Client Notes</title>
+    <link rel="icon" type="image/png" href="/assets/customer_feedback/images/pp.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <script src="/assets/frappe/frappe-web.bundle.js"></script>
     <style>
       :root {
         --wood: #8c6239;
@@ -224,19 +224,22 @@
     <div class="page">
       <header>
         <div class="brand">
-          <div class="brand__mark"></div>
           <img src="/assets/customer_feedback/images/creative_new_Logo2.png" alt="Creative Closets" class="brand__logo">
         </div>
       </header>
       <main>
         <div class="card">
-          <h1>Client Notes</h1>
+          <h1 style="text-align: center;">Client Notes</h1>
           <p>
-            Thank you for partnering with us. Please share your notes about the
-            installation experience.
+            Dear our Valuable Client;<br>
+
+This is to confirm that you have successfully received the contracted project, with the respect of design and all ordered accessories. 
+<br>And our Site engineer has revised and checked all details within your satisfactory.<br>
+
+It will always be our pleasure to consider your comments with all our respect in order to improve our services.
           </p>
-          <div class="status" id="status"></div>
-          <div class="error" id="error"></div>
+          <div class="status" id="status" style="margin-bottom: 20px;"></div>
+          <div class="error" id="error" style="margin-bottom: 20px;"></div>
           <div class="meta">
             <div class="meta__item">
               <span class="meta__label">Project Contraction</span>
@@ -380,14 +383,64 @@
       const params = new URLSearchParams(window.location.search);
       const token = params.get("token");
 
-      const call = (options) =>
-        new Promise((resolve, reject) => {
-          frappe.call({
-            ...options,
-            callback: (response) => resolve(response),
-            error: (err) => reject(err),
+      const toStringValue = (value) => {
+        if (value === undefined || value === null) {
+          return "";
+        }
+        if (typeof value === "object") {
+          return JSON.stringify(value);
+        }
+        return String(value);
+      };
+
+      const normalizeError = (data) => {
+        if (data?._server_messages) {
+          try {
+            const messages = JSON.parse(data._server_messages);
+            if (messages.length) {
+              return messages.join(" ");
+            }
+          } catch (err) {
+            return data._server_messages;
+          }
+        }
+        return data?.message || data?.exc || "Unable to complete request.";
+      };
+
+      const call = async (method, payload = {}, options = {}) => {
+        const httpMethod = options.httpMethod || "GET";
+        const url = new URL(`/api/method/${method}`, window.location.origin);
+        const requestOptions = {
+          method: httpMethod,
+          headers: {
+            Accept: "application/json",
+          },
+          credentials: "same-origin",
+        };
+
+        if (httpMethod === "GET") {
+          Object.entries(payload).forEach(([key, value]) => {
+            url.searchParams.append(key, toStringValue(value));
           });
-        });
+        } else {
+          const body = new URLSearchParams();
+          Object.entries(payload).forEach(([key, value]) => {
+            body.append(key, toStringValue(value));
+          });
+          requestOptions.headers["Content-Type"] =
+            "application/x-www-form-urlencoded;charset=UTF-8";
+          requestOptions.body = body.toString();
+        }
+
+        const response = await fetch(url.toString(), requestOptions);
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || data?.exc) {
+          throw new Error(normalizeError(data));
+        }
+
+        return data;
+      };
 
       const setReadOnly = (isReadOnly) => {
         fields.forEach((field) => {
@@ -420,10 +473,11 @@
         }
 
         try {
-          const response = await call({
-            method: "customer_feedback.api.feedback.get_feedback_context",
-            args: { token },
-          });
+          const response = await call(
+            "customer_feedback.customer_feedback.api.feedback.get_feedback_context",
+            { token },
+            { httpMethod: "GET" }
+          );
           const data = response.message;
           if (!data) {
             showError("Unable to load feedback details.");
@@ -464,10 +518,11 @@
         );
 
         try {
-          const response = await call({
-            method: "customer_feedback.api.feedback.submit_feedback",
-            args: { token, feedback: payload },
-          });
+          const response = await call(
+            "customer_feedback.customer_feedback.api.feedback.submit_feedback",
+            { token, feedback: payload },
+            { httpMethod: "POST" }
+          );
           const repliedDate = response.message?.customer_replied_date;
           showStatus(`Thank you! Notes submitted on ${repliedDate}.`);
           setReadOnly(true);
@@ -477,7 +532,11 @@
         }
       });
 
-      loadContext();
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", loadContext);
+      } else {
+        loadContext();
+      }
     </script>
   </body>
 </html>
