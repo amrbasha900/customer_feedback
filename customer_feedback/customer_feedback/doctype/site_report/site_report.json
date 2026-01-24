@@ -1,0 +1,192 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-23 04:39:49.444896",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "about_project_section",
+  "customer",
+  "project_contraction",
+  "starting_date_of_installation",
+  "ending_date_of_installation",
+  "column_break_ljdz",
+  "job_no",
+  "title_of_project",
+  "site_engineer",
+  "customer_replied_date",
+  "site_engineer_remarks_section",
+  "site_report",
+  "client_notes_section",
+  "after_installation_site_condition",
+  "after_installation_site_condition_remark",
+  "closet_status_design_expectations",
+  "closet_status_design_expectations_remark",
+  "column_break_kynb",
+  "installation_team_behavior_and_appearance",
+  "installation_team_behavior_and_appearance_remark",
+  "closet_status_finish_and_quality_expectations",
+  "closet_status_finish_and_quality_expectations_remark",
+  "section_break_ry4y",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ry4y",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Site Report",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "about_project_section",
+   "fieldtype": "Section Break",
+   "label": "About Project"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "project_contraction",
+   "fieldtype": "Data",
+   "label": "Project Contraction"
+  },
+  {
+   "fieldname": "column_break_ljdz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "job_no",
+   "fieldtype": "Link",
+   "label": "Job No",
+   "options": "Project"
+  },
+  {
+   "fieldname": "starting_date_of_installation",
+   "fieldtype": "Date",
+   "label": "Starting Date of Installation"
+  },
+  {
+   "fieldname": "ending_date_of_installation",
+   "fieldtype": "Date",
+   "label": "Ending Date of Installation"
+  },
+  {
+   "fieldname": "site_engineer",
+   "fieldtype": "Data",
+   "label": "Site Engineer"
+  },
+  {
+   "fieldname": "site_engineer_remarks_section",
+   "fieldtype": "Section Break",
+   "label": "Site Engineer Remarks"
+  },
+  {
+   "fieldname": "site_report",
+   "fieldtype": "Text Editor",
+   "label": "Site Report"
+  },
+  {
+   "fieldname": "client_notes_section",
+   "fieldtype": "Section Break",
+   "label": "Client Notes"
+  },
+  {
+   "fieldname": "after_installation_site_condition",
+   "fieldtype": "Select",
+   "label": "After Installation Site Condition",
+   "options": "Fair\nGood\nVery Good\nExcellent"
+  },
+  {
+   "fieldname": "after_installation_site_condition_remark",
+   "fieldtype": "Data",
+   "label": "After Installation Site Condition Remark"
+  },
+  {
+   "fieldname": "column_break_kynb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "installation_team_behavior_and_appearance",
+   "fieldtype": "Select",
+   "label": "Installation Team Behavior and Appearance",
+   "options": "Fair\nGood\nVery Good\nExcellent"
+  },
+  {
+   "fieldname": "installation_team_behavior_and_appearance_remark",
+   "fieldtype": "Data",
+   "label": "Installation Team Behavior and Appearance Remark"
+  },
+  {
+   "fieldname": "closet_status_design_expectations",
+   "fieldtype": "Select",
+   "label": "Closet Status (Design Expectations)",
+   "options": "Fair\nGood\nVery Good\nExcellent"
+  },
+  {
+   "fieldname": "closet_status_finish_and_quality_expectations",
+   "fieldtype": "Select",
+   "label": "Closet Status Finish & Quality Expectations",
+   "options": "Fair\nGood\nVery Good\nExcellent"
+  },
+  {
+   "fieldname": "closet_status_finish_and_quality_expectations_remark",
+   "fieldtype": "Data",
+   "label": "Closet Status Finish & Quality Expectations Remark"
+  },
+  {
+   "fieldname": "closet_status_design_expectations_remark",
+   "fieldtype": "Data",
+   "label": "Closet Status Remark"
+  },
+  {
+   "fetch_from": "job_no.customer",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "customer_replied_date",
+   "fieldtype": "Date",
+   "label": "Customer Replied Date"
+  },
+  {
+   "fetch_from": "job_no.project_name",
+   "fieldname": "title_of_project",
+   "fieldtype": "Data",
+   "label": "Title of Project"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-01-24 14:39:20.155584",
+ "modified_by": "Administrator",
+ "module": "Customer Feedback",
+ "name": "Site Report",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
