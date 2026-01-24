@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Creative Closets | Client Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="/assets/frappe/frappe-web.bundle.js"></script>
+    <style>
+      :root {
+        --wood: #8c6239;
+        --charcoal: #1c1c1c;
+        --cream: #f6f2ec;
+        --sand: #e6d6c3;
+        --accent: #c59d5f;
+        --muted: #6b6b6b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #f9f5f0 0%, #f1e6d6 100%);
+        color: var(--charcoal);
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        padding: 32px 24px 16px;
+        text-align: center;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 22px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      .brand__mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--wood), var(--accent));
+      }
+
+      .brand__title {
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        letter-spacing: 0.5px;
+      }
+
+      main {
+        flex: 1;
+        padding: 24px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .card {
+        width: min(960px, 100%);
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      .card h1 {
+        font-size: 28px;
+        margin: 0 0 8px;
+        font-family: "Playfair Display", serif;
+      }
+
+      .card p {
+        margin: 0 0 20px;
+        color: var(--muted);
+      }
+
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+        padding: 16px;
+        background: var(--cream);
+        border-radius: 16px;
+      }
+
+      .meta__item {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .meta__label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+      }
+
+      .meta__value {
+        font-weight: 600;
+      }
+
+      form {
+        display: grid;
+        gap: 18px;
+      }
+
+      .field-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--charcoal);
+      }
+
+      select,
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        font-family: inherit;
+        background: #fff;
+      }
+
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+
+      .remark {
+        grid-column: 1 / -1;
+      }
+
+      .status {
+        padding: 14px 18px;
+        border-radius: 14px;
+        background: rgba(197, 157, 95, 0.15);
+        border: 1px solid rgba(197, 157, 95, 0.4);
+        color: #6a4a21;
+        font-weight: 600;
+        display: none;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      button {
+        padding: 12px 26px;
+        border-radius: 999px;
+        border: none;
+        background: var(--charcoal);
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      button:disabled {
+        background: #999;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .error {
+        color: #a12c2c;
+        background: #f7e5e5;
+        border: 1px solid #f0c9c9;
+        padding: 12px 14px;
+        border-radius: 12px;
+        display: none;
+      }
+
+      footer {
+        text-align: center;
+        padding: 18px 0 26px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 640px) {
+        .card {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="brand">
+          <div class="brand__mark"></div>
+          <div class="brand__title">Creative Closets</div>
+        </div>
+      </header>
+      <main>
+        <div class="card">
+          <h1>Client Notes</h1>
+          <p>
+            Thank you for partnering with us. Please share your notes about the
+            installation experience.
+          </p>
+          <div class="status" id="status"></div>
+          <div class="error" id="error"></div>
+          <div class="meta">
+            <div class="meta__item">
+              <span class="meta__label">Project Contraction</span>
+              <span class="meta__value" id="projectContraction">--</span>
+            </div>
+            <div class="meta__item">
+              <span class="meta__label">Feedback Date</span>
+              <span class="meta__value" id="feedbackDate">--</span>
+            </div>
+          </div>
+
+          <form id="feedbackForm">
+            <div class="field-grid">
+              <div>
+                <label for="after_installation_site_condition"
+                  >After Installation Site Condition</label
+                >
+                <select id="after_installation_site_condition">
+                  <option value="">Select</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Good">Good</option>
+                  <option value="Very Good">Very Good</option>
+                  <option value="Excellent">Excellent</option>
+                </select>
+              </div>
+              <div class="remark">
+                <label for="after_installation_site_condition_remark"
+                  >Remark</label
+                >
+                <input
+                  id="after_installation_site_condition_remark"
+                  type="text"
+                  placeholder="Share more details"
+                />
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div>
+                <label for="installation_team_behavior_and_appearance"
+                  >Installation Team Behavior & Appearance</label
+                >
+                <select id="installation_team_behavior_and_appearance">
+                  <option value="">Select</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Good">Good</option>
+                  <option value="Very Good">Very Good</option>
+                  <option value="Excellent">Excellent</option>
+                </select>
+              </div>
+              <div class="remark">
+                <label for="installation_team_behavior_and_appearance_remark"
+                  >Remark</label
+                >
+                <input
+                  id="installation_team_behavior_and_appearance_remark"
+                  type="text"
+                  placeholder="Share more details"
+                />
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div>
+                <label for="closet_status_design_expectations"
+                  >Closet Status (Design Expectations)</label
+                >
+                <select id="closet_status_design_expectations">
+                  <option value="">Select</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Good">Good</option>
+                  <option value="Very Good">Very Good</option>
+                  <option value="Excellent">Excellent</option>
+                </select>
+              </div>
+              <div class="remark">
+                <label for="closet_status_design_expectations_remark">Remark</label>
+                <input
+                  id="closet_status_design_expectations_remark"
+                  type="text"
+                  placeholder="Share more details"
+                />
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div>
+                <label for="closet_status_finish_and_quality_expectations"
+                  >Closet Status Finish & Quality Expectations</label
+                >
+                <select id="closet_status_finish_and_quality_expectations">
+                  <option value="">Select</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Good">Good</option>
+                  <option value="Very Good">Very Good</option>
+                  <option value="Excellent">Excellent</option>
+                </select>
+              </div>
+              <div class="remark">
+                <label for="closet_status_finish_and_quality_expectations_remark"
+                  >Remark</label
+                >
+                <input
+                  id="closet_status_finish_and_quality_expectations_remark"
+                  type="text"
+                  placeholder="Share more details"
+                />
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit" id="submitButton">Send Notes</button>
+            </div>
+          </form>
+        </div>
+      </main>
+      <footer>Creative Closets Team</footer>
+    </div>
+
+    <script>
+      const form = document.getElementById("feedbackForm");
+      const statusBox = document.getElementById("status");
+      const errorBox = document.getElementById("error");
+      const submitButton = document.getElementById("submitButton");
+
+      const fields = [
+        "after_installation_site_condition",
+        "after_installation_site_condition_remark",
+        "installation_team_behavior_and_appearance",
+        "installation_team_behavior_and_appearance_remark",
+        "closet_status_design_expectations",
+        "closet_status_design_expectations_remark",
+        "closet_status_finish_and_quality_expectations",
+        "closet_status_finish_and_quality_expectations_remark",
+      ];
+
+      const fieldElements = Object.fromEntries(
+        fields.map((field) => [field, document.getElementById(field)])
+      );
+
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get("token");
+
+      const call = (options) =>
+        new Promise((resolve, reject) => {
+          frappe.call({
+            ...options,
+            callback: (response) => resolve(response),
+            error: (err) => reject(err),
+          });
+        });
+
+      const setReadOnly = (isReadOnly) => {
+        fields.forEach((field) => {
+          const element = fieldElements[field];
+          element.disabled = isReadOnly;
+        });
+        submitButton.style.display = isReadOnly ? "none" : "inline-flex";
+      };
+
+      const showError = (message) => {
+        errorBox.textContent = message;
+        errorBox.style.display = "block";
+      };
+
+      const clearError = () => {
+        errorBox.textContent = "";
+        errorBox.style.display = "none";
+      };
+
+      const showStatus = (message) => {
+        statusBox.textContent = message;
+        statusBox.style.display = "block";
+      };
+
+      const loadContext = async () => {
+        if (!token) {
+          showError("Missing feedback link token.");
+          setReadOnly(true);
+          return;
+        }
+
+        try {
+          const response = await call({
+            method: "customer_feedback.api.feedback.get_feedback_context",
+            args: { token },
+          });
+          const data = response.message;
+          if (!data) {
+            showError("Unable to load feedback details.");
+            return;
+          }
+
+          document.getElementById("projectContraction").textContent =
+            data.project_contraction || "--";
+          document.getElementById("feedbackDate").textContent =
+            data.current_date || "--";
+
+          Object.entries(data.feedback || {}).forEach(([key, value]) => {
+            if (fieldElements[key]) {
+              fieldElements[key].value = value || "";
+            }
+          });
+
+          if (data.submitted) {
+            const submittedOn = data.customer_replied_date || data.current_date;
+            showStatus(`Feedback already received on ${submittedOn}.`);
+            setReadOnly(true);
+          } else {
+            showStatus("Please complete the Client Notes below.");
+            setReadOnly(false);
+          }
+        } catch (err) {
+          showError(err?.message || "Unable to load feedback details.");
+        }
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        clearError();
+        submitButton.disabled = true;
+
+        const payload = Object.fromEntries(
+          fields.map((field) => [field, fieldElements[field].value])
+        );
+
+        try {
+          const response = await call({
+            method: "customer_feedback.api.feedback.submit_feedback",
+            args: { token, feedback: payload },
+          });
+          const repliedDate = response.message?.customer_replied_date;
+          showStatus(`Thank you! Notes submitted on ${repliedDate}.`);
+          setReadOnly(true);
+        } catch (err) {
+          showError(err?.message || "Unable to submit feedback.");
+          submitButton.disabled = false;
+        }
+      });
+
+      loadContext();
+    </script>
+  </body>
+</html>

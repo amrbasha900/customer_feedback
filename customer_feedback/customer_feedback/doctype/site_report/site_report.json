@@ -15,6 +15,7 @@
   "title_of_project",
   "site_engineer",
   "customer_replied_date",
+  "feedback_token",
   "site_engineer_remarks_section",
   "site_report",
   "client_notes_section",
@@ -155,6 +156,14 @@
    "fieldname": "customer_replied_date",
    "fieldtype": "Date",
    "label": "Customer Replied Date"
+  },
+  {
+   "fieldname": "feedback_token",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Feedback Token",
+   "no_copy": 1,
+   "read_only": 1
   },
   {
    "fetch_from": "job_no.project_name",
