@@ -23,6 +23,7 @@ app_license = "mit"
 
 # Includes in <head>
 # ------------------
+before_request = ["customer_feedback.utils.csrf.handle_csrf_for_guest_endpoints"]
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/customer_feedback/css/customer_feedback.css"
