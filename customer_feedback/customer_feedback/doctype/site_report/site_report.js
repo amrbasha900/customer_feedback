@@ -9,7 +9,7 @@ frappe.ui.form.on("Site Report", {
 
 		frm.add_custom_button(__("Get Feedback Link"), async () => {
 			const response = await frappe.call({
-				method: "customer_feedback.api.feedback.generate_feedback_link",
+				method: "customer_feedback.customer_feedback.api.feedback.generate_feedback_link",
 				args: { site_report: frm.doc.name },
 			});
 
