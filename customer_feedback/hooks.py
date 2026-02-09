@@ -138,13 +138,11 @@ before_request = ["customer_feedback.utils.csrf.handle_csrf_for_guest_endpoints"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Project": {
+		"on_update": "customer_feedback.customer_feedback.api.project_hooks.on_project_update",
+	}
+}
 
 # Scheduled Tasks
 # ---------------

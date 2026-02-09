@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{job_no}-{#####}",
  "creation": "2026-01-23 04:39:49.444896",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -10,6 +11,8 @@
   "project_contraction",
   "starting_date_of_installation",
   "ending_date_of_installation",
+  "mobile_number",
+  "whatsapp_number",
   "column_break_ljdz",
   "job_no",
   "title_of_project",
@@ -28,6 +31,10 @@
   "installation_team_behavior_and_appearance_remark",
   "closet_status_finish_and_quality_expectations",
   "closet_status_finish_and_quality_expectations_remark",
+  "showroom_and_designer_evaluation",
+  "showroom_and_designer_evaluation_remark",
+  "section_break_sdnp",
+  "url",
   "section_break_ry4y",
   "amended_from"
  ],
@@ -98,12 +105,13 @@
    "label": "Client Notes"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "after_installation_site_condition",
-   "fieldtype": "Select",
-   "label": "After Installation Site Condition",
-   "options": "\nFair\nGood\nVery Good\nExcellent"
+   "fieldtype": "Rating",
+   "label": "After Installation Site Condition"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "after_installation_site_condition_remark",
    "fieldtype": "Data",
    "label": "After Installation Site Condition Remark"
@@ -113,34 +121,37 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "installation_team_behavior_and_appearance",
-   "fieldtype": "Select",
-   "label": "Installation Team Behavior and Appearance",
-   "options": "\nFair\nGood\nVery Good\nExcellent"
+   "fieldtype": "Rating",
+   "label": "Installation Team Behavior and Appearance"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "installation_team_behavior_and_appearance_remark",
    "fieldtype": "Data",
    "label": "Installation Team Behavior and Appearance Remark"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "closet_status_design_expectations",
-   "fieldtype": "Select",
-   "label": "Closet Status (Design Expectations)",
-   "options": "\nFair\nGood\nVery Good\nExcellent"
+   "fieldtype": "Rating",
+   "label": "Closet Status (Design Expectations)"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "closet_status_finish_and_quality_expectations",
-   "fieldtype": "Select",
-   "label": "Closet Status Finish & Quality Expectations",
-   "options": "\nFair\nGood\nVery Good\nExcellent"
+   "fieldtype": "Rating",
+   "label": "Closet Status Finish & Quality Expectations"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "closet_status_finish_and_quality_expectations_remark",
    "fieldtype": "Data",
    "label": "Closet Status Finish & Quality Expectations Remark"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "closet_status_design_expectations_remark",
    "fieldtype": "Data",
    "label": "Closet Status Remark"
@@ -170,15 +181,51 @@
    "fieldname": "title_of_project",
    "fieldtype": "Data",
    "label": "Title of Project"
+  },
+  {
+   "fieldname": "section_break_sdnp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "url",
+   "fieldtype": "Data",
+   "label": "URL",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.mobile_no",
+   "fieldname": "mobile_number",
+   "fieldtype": "Data",
+   "label": "Mobile Number"
+  },
+  {
+   "fetch_from": "customer.whatsapp_number",
+   "fieldname": "whatsapp_number",
+   "fieldtype": "Data",
+   "label": "Whatsapp Number"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "showroom_and_designer_evaluation",
+   "fieldtype": "Rating",
+   "label": "Showroom and Designer Evaluation"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "showroom_and_designer_evaluation_remark",
+   "fieldtype": "Data",
+   "label": "Showroom and Designer Evaluation Remark"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-24 16:12:27.030957",
+ "modified": "2026-02-10 00:17:47.397110",
  "modified_by": "Administrator",
  "module": "Customer Feedback",
  "name": "Site Report",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

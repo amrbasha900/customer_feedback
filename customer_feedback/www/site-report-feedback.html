@@ -19,6 +19,9 @@
         --sand: #e6d6c3;
         --accent: #c59d5f;
         --muted: #6b6b6b;
+        --star-empty: #d4d4d4;
+        --star-filled: #f5a623;
+        --star-hover: #ffbf47;
       }
 
       * {
@@ -39,37 +42,31 @@
       }
 
       header {
-        padding: 32px 24px 16px;
-        text-align: center;
+        padding: 24px 24px 0;
+        display: flex;
+        justify-content: center;
       }
 
       .brand {
-        display: inline-flex;
+        display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 12px 22px;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.7);
-        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        justify-content: center;
+        width: min(960px, 100%);
+        border-radius: 24px 24px 0 0;
+        background: #000000;
       }
 
-      .brand__mark {
-        width: 38px;
-        height: 38px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, var(--wood), var(--accent));
-      }
-
-      .brand__title {
-        font-family: "Playfair Display", serif;
-        font-size: 20px;
-        letter-spacing: 0.5px;
+      .brand__logo {
+        height: 200px;
+        width: auto;
+        max-width: 280px;
+        object-fit: contain;
+        display: block;
       }
 
       main {
         flex: 1;
-        padding: 24px;
+        padding: 0 24px 24px;
         display: flex;
         justify-content: center;
       }
@@ -77,10 +74,11 @@
       .card {
         width: min(960px, 100%);
         background: #ffffff;
-        border-radius: 24px;
+        border-radius: 0 0 24px 24px;
         padding: 32px;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(0, 0, 0, 0.06);
+        border-top: none;
       }
 
       .card h1 {
@@ -92,6 +90,7 @@
       .card p {
         margin: 0 0 20px;
         color: var(--muted);
+        line-height: 1.6;
       }
 
       .meta {
@@ -121,42 +120,168 @@
         font-weight: 600;
       }
 
-      form {
-        display: grid;
-        gap: 18px;
+      /* Rating Guide */
+      .rating-guide {
+        background: linear-gradient(135deg, #fdf8f0 0%, #f9f0e3 100%);
+        border: 1px solid var(--sand);
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-bottom: 24px;
       }
 
-      .field-grid {
-        display: grid;
-        gap: 12px;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      .rating-guide h3 {
+        margin: 0 0 14px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--wood);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
       }
 
-      label {
-        font-size: 13px;
+      .guide-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+
+      .guide-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 6px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        text-align: center;
+      }
+
+      .guide-stars {
+        font-size: 18px;
+        letter-spacing: 2px;
+        line-height: 1;
+      }
+
+      .guide-stars .filled {
+        color: var(--star-filled);
+      }
+
+      .guide-stars .empty {
+        color: var(--star-empty);
+      }
+
+      .guide-label {
+        font-size: 11px;
         font-weight: 600;
         color: var(--charcoal);
+        line-height: 1.3;
       }
 
-      select,
-      input[type="text"],
-      textarea {
+      .guide-weight {
+        font-size: 10px;
+        color: var(--muted);
+      }
+
+      /* Site Report Textarea */
+      #site_report:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      /* Form */
+      form {
+        display: grid;
+        gap: 24px;
+      }
+
+      /* Star Rating Question */
+      .rating-question {
+        background: #fafafa;
+        border: 1px solid #eee;
+        border-radius: 16px;
+        padding: 20px 24px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .rating-question:hover {
+        border-color: var(--sand);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      .rating-question__label {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--charcoal);
+        margin-bottom: 12px;
+        display: block;
+      }
+
+      .star-rating {
+        display: inline-flex;
+        gap: 6px;
+        margin-bottom: 8px;
+        direction: ltr;
+      }
+
+      .star-rating .star {
+        font-size: 36px;
+        cursor: pointer;
+        color: var(--star-empty);
+        transition: color 0.15s ease, transform 0.15s ease;
+        user-select: none;
+        line-height: 1;
+      }
+
+      .star-rating .star:hover {
+        transform: scale(1.15);
+      }
+
+      .star-rating .star.filled {
+        color: var(--star-filled);
+      }
+
+      .star-rating .star.hovered {
+        color: var(--star-hover);
+      }
+
+      .star-rating.readonly .star {
+        cursor: default;
+        pointer-events: none;
+      }
+
+      .rating-label-text {
+        display: inline-block;
+        margin-left: 12px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--accent);
+        min-width: 100px;
+        vertical-align: super;
+      }
+
+      .rating-question__remark {
+        margin-top: 10px;
+      }
+
+      .rating-question__remark input {
         width: 100%;
-        padding: 12px 14px;
-        border-radius: 12px;
+        padding: 10px 14px;
+        border-radius: 10px;
         border: 1px solid #ddd;
-        font-size: 14px;
+        font-size: 13px;
         font-family: inherit;
         background: #fff;
+        transition: border-color 0.2s ease;
       }
 
-      textarea {
-        min-height: 90px;
-        resize: vertical;
+      .rating-question__remark input:focus {
+        outline: none;
+        border-color: var(--accent);
       }
 
-      .remark {
-        grid-column: 1 / -1;
+      .required-star {
+        color: #c0392b;
+        margin-left: 2px;
       }
 
       .status {
@@ -169,13 +294,22 @@
         display: none;
       }
 
+      .error {
+        color: #a12c2c;
+        background: #f7e5e5;
+        border: 1px solid #f0c9c9;
+        padding: 12px 14px;
+        border-radius: 12px;
+        display: none;
+      }
+
       .actions {
         display: flex;
         justify-content: flex-end;
       }
 
-      button {
-        padding: 12px 26px;
+      button.submit-btn {
+        padding: 14px 32px;
         border-radius: 999px;
         border: none;
         background: var(--charcoal);
@@ -186,24 +320,153 @@
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
 
-      button:hover {
+      button.submit-btn:hover {
         transform: translateY(-1px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
       }
 
-      button:disabled {
+      button.submit-btn:disabled {
         background: #999;
         cursor: not-allowed;
         box-shadow: none;
+        transform: none;
       }
 
-      .error {
-        color: #a12c2c;
-        background: #f7e5e5;
-        border: 1px solid #f0c9c9;
-        padding: 12px 14px;
-        border-radius: 12px;
+      /* Popup Overlay */
+      .popup-overlay {
         display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .popup-overlay.active {
+        display: flex;
+      }
+
+      .popup-box {
+        background: #fff;
+        border-radius: 24px;
+        padding: 40px 36px;
+        max-width: 460px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        animation: scaleIn 0.3s ease;
+      }
+
+      .popup-icon {
+        font-size: 56px;
+        margin-bottom: 16px;
+        display: block;
+      }
+
+      .popup-box h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 26px;
+        margin: 0 0 8px;
+        color: var(--charcoal);
+      }
+
+      .popup-box p {
+        color: var(--muted);
+        font-size: 15px;
+        margin: 0 0 24px;
+        line-height: 1.5;
+      }
+
+      .popup-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .btn-google {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 999px;
+        border: none;
+        background: #4285f4;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+      }
+
+      .btn-google:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 20px rgba(66, 133, 244, 0.3);
+      }
+
+      .btn-google svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .btn-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 999px;
+        border: none;
+        background: var(--charcoal);
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+      }
+
+      .btn-download:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        color: white;
+      }
+
+      .btn-download svg {
+        width: 18px;
+        height: 18px;
+        fill: white;
+      }
+
+      .btn-close-popup {
+        padding: 10px 24px;
+        border-radius: 999px;
+        border: 1px solid #ddd;
+        background: transparent;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .btn-close-popup:hover {
+        background: #f5f5f5;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes scaleIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
       }
 
       footer {
@@ -213,9 +476,302 @@
         font-size: 13px;
       }
 
-      @media (max-width: 640px) {
+      /* ── Tablet ── */
+      @media (max-width: 768px) {
+        header {
+          padding: 16px 16px 0;
+        }
+
+        .brand {
+          padding: 20px 24px;
+          border-radius: 20px 20px 0 0;
+        }
+
+        .brand__logo {
+          height: 150px;
+          max-width: 220px;
+        }
+
+        main {
+          padding: 0 16px 16px;
+        }
+
         .card {
           padding: 24px;
+          border-radius: 0 0 20px 20px;
+        }
+
+        .card h1 {
+          font-size: 24px;
+        }
+
+        .card p {
+          font-size: 14px;
+        }
+
+        .meta {
+          grid-template-columns: 1fr 1fr;
+          padding: 14px;
+          gap: 12px;
+        }
+
+        .rating-guide {
+          padding: 16px 18px;
+        }
+
+        .guide-grid {
+          gap: 6px;
+        }
+
+        .guide-stars {
+          font-size: 16px;
+          letter-spacing: 1px;
+        }
+
+        .guide-label {
+          font-size: 10px;
+        }
+
+        .rating-question {
+          padding: 16px 18px;
+        }
+
+        .star-rating .star {
+          font-size: 32px;
+          gap: 4px;
+        }
+
+        .popup-box {
+          padding: 32px 24px;
+        }
+
+        .popup-box h2 {
+          font-size: 22px;
+        }
+      }
+
+      /* ── Mobile ── */
+      @media (max-width: 480px) {
+        header {
+          padding: 10px 10px 0;
+        }
+
+        .brand {
+          padding: 18px 16px;
+          border-radius: 16px 16px 0 0;
+        }
+
+        .brand__logo {
+          height: 150px;
+          max-width: 180px;
+        }
+
+        main {
+          padding: 0 10px 10px;
+        }
+
+        .card {
+          padding: 18px;
+          border-radius: 0 0 16px 16px;
+        }
+
+        .card h1 {
+          font-size: 20px;
+          margin-bottom: 6px;
+        }
+
+        .card p {
+          font-size: 13px;
+          margin-bottom: 14px;
+          line-height: 1.5;
+        }
+
+        .meta {
+          grid-template-columns: 1fr;
+          padding: 12px;
+          gap: 10px;
+          margin-bottom: 16px;
+        }
+
+        .meta__label {
+          font-size: 11px;
+        }
+
+        .meta__value {
+          font-size: 14px;
+        }
+
+        .rating-guide {
+          padding: 14px 14px;
+          margin-bottom: 16px;
+          border-radius: 12px;
+        }
+
+        .rating-guide h3 {
+          font-size: 13px;
+          margin-bottom: 10px;
+        }
+
+        .guide-grid {
+          grid-template-columns: repeat(5, 1fr);
+          gap: 4px;
+        }
+
+        .guide-item {
+          padding: 6px 3px;
+          border-radius: 8px;
+          gap: 4px;
+        }
+
+        .guide-stars {
+          font-size: 12px;
+          letter-spacing: 0px;
+        }
+
+        .guide-label {
+          font-size: 8px;
+        }
+
+        form {
+          gap: 14px;
+        }
+
+        .rating-question {
+          padding: 14px 14px;
+          border-radius: 12px;
+        }
+
+        .rating-question__label {
+          font-size: 13px;
+          margin-bottom: 8px;
+        }
+
+        .star-rating {
+          gap: 4px;
+          margin-bottom: 4px;
+        }
+
+        .star-rating .star {
+          font-size: 28px;
+        }
+
+        .rating-label-text {
+          display: block;
+          margin-left: 0;
+          margin-top: 4px;
+          font-size: 12px;
+        }
+
+        .rating-question__remark {
+          margin-top: 8px;
+        }
+
+        .rating-question__remark input {
+          padding: 8px 12px;
+          font-size: 12px;
+          border-radius: 8px;
+        }
+
+        #site_report {
+          font-size: 12px;
+          padding: 8px 12px;
+          border-radius: 8px;
+          min-height: 70px;
+        }
+
+        .status, .error {
+          font-size: 13px;
+          padding: 10px 14px;
+          border-radius: 10px;
+        }
+
+        button.submit-btn {
+          width: 100%;
+          padding: 14px 24px;
+          font-size: 14px;
+        }
+
+        .actions {
+          justify-content: stretch;
+        }
+
+        .popup-box {
+          padding: 28px 20px;
+          border-radius: 20px;
+          width: 92%;
+        }
+
+        .popup-icon {
+          font-size: 44px;
+          margin-bottom: 12px;
+        }
+
+        .popup-box h2 {
+          font-size: 20px;
+        }
+
+        .popup-box p {
+          font-size: 13px;
+          margin-bottom: 18px;
+        }
+
+        .btn-download {
+          padding: 12px 22px;
+          font-size: 14px;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .btn-google {
+          padding: 12px 22px;
+          font-size: 14px;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .btn-close-popup {
+          padding: 10px 20px;
+          font-size: 13px;
+          width: 100%;
+        }
+
+        footer {
+          font-size: 11px;
+          padding: 14px 0 20px;
+        }
+      }
+
+      /* ── Very small screens ── */
+      @media (max-width: 360px) {
+        .brand__logo {
+          height: 150px;
+          max-width: 150px;
+        }
+
+        .card {
+          padding: 14px;
+        }
+
+        .card h1 {
+          font-size: 18px;
+        }
+
+        .star-rating .star {
+          font-size: 24px;
+          gap: 2px;
+        }
+
+        .guide-grid {
+          grid-template-columns: repeat(5, 1fr);
+          gap: 2px;
+        }
+
+        .guide-stars {
+          font-size: 10px;
+        }
+
+        .guide-label {
+          font-size: 7px;
         }
       }
     </style>
@@ -224,22 +780,22 @@
     <div class="page">
       <header>
         <div class="brand">
-          <img src="/assets/customer_feedback/images/creative_new_Logo2.png" alt="Creative Closets" class="brand__logo">
+          <img src="/assets/customer_feedback/images/Vector Smart Object.png" alt="Creative Closets" class="brand__logo">
         </div>
       </header>
       <main>
         <div class="card">
           <h1 style="text-align: center;">Client Notes</h1>
           <p>
-            Dear our Valuable Client;<br>
-
-This is to confirm that you have successfully received the contracted project, with the respect of design and all ordered accessories. 
-<br>And our Site engineer has revised and checked all details within your satisfactory.<br>
-
-It will always be our pleasure to consider your comments with all our respect in order to improve our services.
+            Dear our Valuable Client;<br><br>
+            This is to confirm that you have successfully received the contracted project, with the respect of design and all ordered accessories.
+            <br>And our Site engineer has revised and checked all details within your satisfactory.<br><br>
+            It will always be our pleasure to consider your comments with all our respect in order to improve our services.
           </p>
+
           <div class="status" id="status" style="margin-bottom: 20px;"></div>
           <div class="error" id="error" style="margin-bottom: 20px;"></div>
+
           <div class="meta">
             <div class="meta__item">
               <span class="meta__label">Project Contraction</span>
@@ -251,107 +807,118 @@ It will always be our pleasure to consider your comments with all our respect in
             </div>
           </div>
 
+          <!-- Rating Guide -->
+          <div class="rating-guide">
+            <h3>Rating Scale</h3>
+            <div class="guide-grid">
+              <div class="guide-item">
+                <span class="guide-stars"><span class="filled">&#9733;</span><span class="empty">&#9733;&#9733;&#9733;&#9733;</span></span>
+                <span class="guide-label">Unacceptable</span>
+              </div>
+              <div class="guide-item">
+                <span class="guide-stars"><span class="filled">&#9733;&#9733;</span><span class="empty">&#9733;&#9733;&#9733;</span></span>
+                <span class="guide-label">Fair</span>
+              </div>
+              <div class="guide-item">
+                <span class="guide-stars"><span class="filled">&#9733;&#9733;&#9733;</span><span class="empty">&#9733;&#9733;</span></span>
+                <span class="guide-label">Good</span>
+              </div>
+              <div class="guide-item">
+                <span class="guide-stars"><span class="filled">&#9733;&#9733;&#9733;&#9733;</span><span class="empty">&#9733;</span></span>
+                <span class="guide-label">Very Good</span>
+              </div>
+              <div class="guide-item">
+                <span class="guide-stars"><span class="filled">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
+                <span class="guide-label">Excellent</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feedback Form -->
           <form id="feedbackForm">
-            <div class="field-grid">
-              <div>
-                <label for="after_installation_site_condition"
-                  >After Installation Site Condition</label
-                >
-                <select id="after_installation_site_condition">
-                  <option value="">Select</option>
-                  <option value="Fair">Fair</option>
-                  <option value="Good">Good</option>
-                  <option value="Very Good">Very Good</option>
-                  <option value="Excellent">Excellent</option>
-                </select>
+
+            <div class="rating-question" id="q_site_report">
+              <span class="rating-question__label">Site Report <span class="required-star">*</span></span>
+              <textarea id="site_report" rows="4" placeholder="Write your site report notes here..." style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #ddd;font-size:13px;font-family:inherit;background:#fff;resize:vertical;transition:border-color .2s ease;min-height:90px;"></textarea>
+            </div>
+
+            <div class="rating-question" id="q_after_installation_site_condition">
+              <span class="rating-question__label">After Installation Site Condition <span class="required-star">*</span></span>
+              <div class="star-rating" data-field="after_installation_site_condition">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
               </div>
-              <div class="remark">
-                <label for="after_installation_site_condition_remark"
-                  >Remark</label
-                >
-                <input
-                  id="after_installation_site_condition_remark"
-                  type="text"
-                  placeholder="Share more details"
-                />
+              <span class="rating-label-text" data-field="after_installation_site_condition_label"></span>
+              <div class="rating-question__remark">
+                <input type="text" id="after_installation_site_condition_remark" placeholder="Remark (optional)" />
               </div>
             </div>
 
-            <div class="field-grid">
-              <div>
-                <label for="installation_team_behavior_and_appearance"
-                  >Installation Team Behavior & Appearance</label
-                >
-                <select id="installation_team_behavior_and_appearance">
-                  <option value="">Select</option>
-                  <option value="Fair">Fair</option>
-                  <option value="Good">Good</option>
-                  <option value="Very Good">Very Good</option>
-                  <option value="Excellent">Excellent</option>
-                </select>
+            <div class="rating-question" id="q_installation_team_behavior_and_appearance">
+              <span class="rating-question__label">Installation Team Behavior & Appearance <span class="required-star">*</span></span>
+              <div class="star-rating" data-field="installation_team_behavior_and_appearance">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
               </div>
-              <div class="remark">
-                <label for="installation_team_behavior_and_appearance_remark"
-                  >Remark</label
-                >
-                <input
-                  id="installation_team_behavior_and_appearance_remark"
-                  type="text"
-                  placeholder="Share more details"
-                />
+              <span class="rating-label-text" data-field="installation_team_behavior_and_appearance_label"></span>
+              <div class="rating-question__remark">
+                <input type="text" id="installation_team_behavior_and_appearance_remark" placeholder="Remark (optional)" />
               </div>
             </div>
 
-            <div class="field-grid">
-              <div>
-                <label for="closet_status_design_expectations"
-                  >Closet Status (Design Expectations)</label
-                >
-                <select id="closet_status_design_expectations">
-                  <option value="">Select</option>
-                  <option value="Fair">Fair</option>
-                  <option value="Good">Good</option>
-                  <option value="Very Good">Very Good</option>
-                  <option value="Excellent">Excellent</option>
-                </select>
+            <div class="rating-question" id="q_closet_status_design_expectations">
+              <span class="rating-question__label">Closet Status (Design Expectations) <span class="required-star">*</span></span>
+              <div class="star-rating" data-field="closet_status_design_expectations">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
               </div>
-              <div class="remark">
-                <label for="closet_status_design_expectations_remark">Remark</label>
-                <input
-                  id="closet_status_design_expectations_remark"
-                  type="text"
-                  placeholder="Share more details"
-                />
+              <span class="rating-label-text" data-field="closet_status_design_expectations_label"></span>
+              <div class="rating-question__remark">
+                <input type="text" id="closet_status_design_expectations_remark" placeholder="Remark (optional)" />
               </div>
             </div>
 
-            <div class="field-grid">
-              <div>
-                <label for="closet_status_finish_and_quality_expectations"
-                  >Closet Status Finish & Quality Expectations</label
-                >
-                <select id="closet_status_finish_and_quality_expectations">
-                  <option value="">Select</option>
-                  <option value="Fair">Fair</option>
-                  <option value="Good">Good</option>
-                  <option value="Very Good">Very Good</option>
-                  <option value="Excellent">Excellent</option>
-                </select>
+            <div class="rating-question" id="q_closet_status_finish_and_quality_expectations">
+              <span class="rating-question__label">Closet Status Finish & Quality Expectations <span class="required-star">*</span></span>
+              <div class="star-rating" data-field="closet_status_finish_and_quality_expectations">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
               </div>
-              <div class="remark">
-                <label for="closet_status_finish_and_quality_expectations_remark"
-                  >Remark</label
-                >
-                <input
-                  id="closet_status_finish_and_quality_expectations_remark"
-                  type="text"
-                  placeholder="Share more details"
-                />
+              <span class="rating-label-text" data-field="closet_status_finish_and_quality_expectations_label"></span>
+              <div class="rating-question__remark">
+                <input type="text" id="closet_status_finish_and_quality_expectations_remark" placeholder="Remark (optional)" />
+              </div>
+            </div>
+
+            <div class="rating-question" id="q_showroom_and_designer_evaluation">
+              <span class="rating-question__label">Showroom and Designer Evaluation <span class="required-star">*</span></span>
+              <div class="star-rating" data-field="showroom_and_designer_evaluation">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+              </div>
+              <span class="rating-label-text" data-field="showroom_and_designer_evaluation_label"></span>
+              <div class="rating-question__remark">
+                <input type="text" id="showroom_and_designer_evaluation_remark" placeholder="Remark (optional)" />
               </div>
             </div>
 
             <div class="actions">
-              <button type="submit" id="submitButton">Send Notes</button>
+              <button type="submit" class="submit-btn" id="submitButton">Send Notes</button>
             </div>
           </form>
         </div>
@@ -359,37 +926,125 @@ It will always be our pleasure to consider your comments with all our respect in
       <footer>Creative Closets Team</footer>
     </div>
 
+    <!-- Thank You Popup -->
+    <div class="popup-overlay" id="thankYouPopup">
+      <div class="popup-box">
+        <span class="popup-icon">&#10004;&#65039;</span>
+        <h2>Thank You!</h2>
+        <p>Your Notes Submitted</p>
+        <div class="popup-actions">
+          <a href="#" class="btn-download" id="downloadCertBtn" style="display: none;" download>
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Download Certificate
+          </a>
+          <a href="#" class="btn-google" id="googleRateBtn" style="display: none;" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Rate Us on Google
+          </a>
+          <button class="btn-close-popup" id="closePopupBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
     <script>
+/* ── Constants ── */
+const STAR_LABELS = {
+  1: "Unacceptable",
+  2: "Fair",
+  3: "Good",
+  4: "Very Good",
+  5: "Excellent",
+};
+
+// Star value to ERPNext Rating value mapping
+const starToRate = (stars) => stars * 0.2;   // 1→0.2, 2→0.4 ... 5→1.0
+const rateToStar = (rate) => Math.round(rate / 0.2);  // 0.2→1, 0.4→2 ... 1.0→5
+
+const RATING_FIELDS = [
+  "after_installation_site_condition",
+  "installation_team_behavior_and_appearance",
+  "closet_status_design_expectations",
+  "closet_status_finish_and_quality_expectations",
+  "showroom_and_designer_evaluation",
+];
+
+const REMARK_FIELDS = [
+  "after_installation_site_condition_remark",
+  "installation_team_behavior_and_appearance_remark",
+  "closet_status_design_expectations_remark",
+  "closet_status_finish_and_quality_expectations_remark",
+  "showroom_and_designer_evaluation_remark",
+];
+
+/* ── Google Review URL ── */
+// Replace with your actual Google Business review URL
+const GOOGLE_REVIEW_URL = "https://share.google/pkeLeNDkDPRhXv8Mx";
+
+/* ── DOM refs ── */
 const form = document.getElementById("feedbackForm");
 const statusBox = document.getElementById("status");
 const errorBox = document.getElementById("error");
 const submitButton = document.getElementById("submitButton");
-
-const fields = [
-  "after_installation_site_condition",
-  "after_installation_site_condition_remark",
-  "installation_team_behavior_and_appearance",
-  "installation_team_behavior_and_appearance_remark",
-  "closet_status_design_expectations",
-  "closet_status_design_expectations_remark",
-  "closet_status_finish_and_quality_expectations",
-  "closet_status_finish_and_quality_expectations_remark",
-];
-
-const fieldElements = Object.fromEntries(
-  fields.map((field) => [field, document.getElementById(field)])
-);
+const thankYouPopup = document.getElementById("thankYouPopup");
+const googleRateBtn = document.getElementById("googleRateBtn");
+const downloadCertBtn = document.getElementById("downloadCertBtn");
+const closePopupBtn = document.getElementById("closePopupBtn");
 
 const params = new URLSearchParams(window.location.search);
 const token = params.get("token");
 
+// Store current star values: { fieldName: starCount (1-5) }
+const starValues = {};
+
+/* ── Star Rating Interaction ── */
+document.querySelectorAll(".star-rating").forEach((container) => {
+  const fieldName = container.dataset.field;
+  const stars = container.querySelectorAll(".star");
+  const labelEl = document.querySelector(`[data-field="${fieldName}_label"]`);
+
+  // Click
+  stars.forEach((star) => {
+    star.addEventListener("click", () => {
+      if (container.classList.contains("readonly")) return;
+      const value = parseInt(star.dataset.value);
+      starValues[fieldName] = value;
+      renderStars(container, value);
+      if (labelEl) labelEl.textContent = STAR_LABELS[value] || "";
+    });
+
+    // Hover
+    star.addEventListener("mouseenter", () => {
+      if (container.classList.contains("readonly")) return;
+      const hoverVal = parseInt(star.dataset.value);
+      stars.forEach((s) => {
+        const v = parseInt(s.dataset.value);
+        s.classList.toggle("hovered", v <= hoverVal);
+      });
+      if (labelEl) labelEl.textContent = STAR_LABELS[hoverVal] || "";
+    });
+  });
+
+  // Mouse leave - revert to selected state
+  container.addEventListener("mouseleave", () => {
+    if (container.classList.contains("readonly")) return;
+    stars.forEach((s) => s.classList.remove("hovered"));
+    const currentValue = starValues[fieldName] || 0;
+    if (labelEl) labelEl.textContent = currentValue ? (STAR_LABELS[currentValue] || "") : "";
+  });
+});
+
+function renderStars(container, filledCount) {
+  container.querySelectorAll(".star").forEach((s) => {
+    const v = parseInt(s.dataset.value);
+    s.classList.toggle("filled", v <= filledCount);
+    s.classList.remove("hovered");
+  });
+}
+
+/* ── Helpers ── */
 const toStringValue = (value) => {
-  if (value === undefined || value === null) {
-    return "";
-  }
-  if (typeof value === "object") {
-    return JSON.stringify(value);
-  }
+  if (value === undefined || value === null) return "";
+  if (typeof value === "object") return JSON.stringify(value);
   return String(value);
 };
 
@@ -397,9 +1052,7 @@ const normalizeError = (data) => {
   if (data?._server_messages) {
     try {
       const messages = JSON.parse(data._server_messages);
-      if (messages.length) {
-        return messages.join(" ");
-      }
+      if (messages.length) return messages.join(" ");
     } catch (err) {
       return data._server_messages;
     }
@@ -412,9 +1065,7 @@ const call = async (method, payload = {}, options = {}) => {
   const url = new URL(`/api/method/${method}`, window.location.origin);
   const requestOptions = {
     method: httpMethod,
-    headers: {
-      Accept: "application/json",
-    },
+    headers: { Accept: "application/json" },
     credentials: "same-origin",
   };
 
@@ -427,26 +1078,39 @@ const call = async (method, payload = {}, options = {}) => {
     Object.entries(payload).forEach(([key, value]) => {
       body.append(key, toStringValue(value));
     });
-    requestOptions.headers["Content-Type"] =
-      "application/x-www-form-urlencoded;charset=UTF-8";
+    requestOptions.headers["Content-Type"] = "application/x-www-form-urlencoded;charset=UTF-8";
     requestOptions.body = body.toString();
   }
 
   const response = await fetch(url.toString(), requestOptions);
   const data = await response.json().catch(() => ({}));
-
-  if (!response.ok || data?.exc) {
-    throw new Error(normalizeError(data));
-  }
-
+  if (!response.ok || data?.exc) throw new Error(normalizeError(data));
   return data;
 };
 
+/* ── DOM ref for site_report textarea ── */
+const siteReportEl = document.getElementById("site_report");
+
+/* ── Set Read-Only Mode ── */
 const setReadOnly = (isReadOnly) => {
-  fields.forEach((field) => {
-    const element = fieldElements[field];
-    element.disabled = isReadOnly;
+  // Star ratings
+  document.querySelectorAll(".star-rating").forEach((container) => {
+    if (isReadOnly) {
+      container.classList.add("readonly");
+    } else {
+      container.classList.remove("readonly");
+    }
   });
+
+  // Site report textarea
+  if (siteReportEl) siteReportEl.disabled = isReadOnly;
+
+  // Remark fields
+  REMARK_FIELDS.forEach((field) => {
+    const el = document.getElementById(field);
+    if (el) el.disabled = isReadOnly;
+  });
+
   submitButton.style.display = isReadOnly ? "none" : "inline-flex";
 };
 
@@ -465,6 +1129,37 @@ const showStatus = (message) => {
   statusBox.style.display = "block";
 };
 
+/* ── Show Thank-You Popup ── */
+const showThankYouPopup = (averageStars, certificateUrl) => {
+  thankYouPopup.classList.add("active");
+
+  // Show download certificate button if URL is available
+  if (certificateUrl) {
+    downloadCertBtn.style.display = "inline-flex";
+    downloadCertBtn.href = certificateUrl;
+  } else {
+    downloadCertBtn.style.display = "none";
+  }
+
+  if (averageStars >= 4) {
+    googleRateBtn.style.display = "inline-flex";
+    googleRateBtn.href = GOOGLE_REVIEW_URL;
+  } else {
+    googleRateBtn.style.display = "none";
+  }
+};
+
+closePopupBtn.addEventListener("click", () => {
+  thankYouPopup.classList.remove("active");
+});
+
+thankYouPopup.addEventListener("click", (e) => {
+  if (e.target === thankYouPopup) {
+    thankYouPopup.classList.remove("active");
+  }
+});
+
+/* ── Load Context ── */
 const loadContext = async () => {
   if (!token) {
     showError("Missing feedback link token.");
@@ -484,15 +1179,32 @@ const loadContext = async () => {
       return;
     }
 
-    document.getElementById("projectContraction").textContent =
-      data.project_contraction || "--";
-    document.getElementById("feedbackDate").textContent =
-      data.current_date || "--";
+    document.getElementById("projectContraction").textContent = data.project_contraction || "--";
+    document.getElementById("feedbackDate").textContent = data.current_date || "--";
 
-    Object.entries(data.feedback || {}).forEach(([key, value]) => {
-      if (fieldElements[key]) {
-        fieldElements[key].value = value || "";
+    // Load site report text into textarea
+    if (data.site_report && siteReportEl) {
+      siteReportEl.value = data.site_report;
+    }
+
+    // Load existing ratings
+    const feedback = data.feedback || {};
+    RATING_FIELDS.forEach((field) => {
+      const rateValue = parseFloat(feedback[field]);
+      if (rateValue > 0) {
+        const stars = rateToStar(rateValue);
+        starValues[field] = stars;
+        const container = document.querySelector(`.star-rating[data-field="${field}"]`);
+        if (container) renderStars(container, stars);
+        const labelEl = document.querySelector(`[data-field="${field}_label"]`);
+        if (labelEl) labelEl.textContent = STAR_LABELS[stars] || "";
       }
+    });
+
+    // Load existing remarks
+    REMARK_FIELDS.forEach((field) => {
+      const el = document.getElementById(field);
+      if (el && feedback[field]) el.value = feedback[field];
     });
 
     if (data.submitted) {
@@ -508,70 +1220,118 @@ const loadContext = async () => {
   }
 };
 
+/* ── Validation ── */
+const RATING_LABEL_MAP = {
+  "after_installation_site_condition": "After Installation Site Condition",
+  "installation_team_behavior_and_appearance": "Installation Team Behavior & Appearance",
+  "closet_status_design_expectations": "Closet Status (Design Expectations)",
+  "closet_status_finish_and_quality_expectations": "Closet Status Finish & Quality Expectations",
+  "showroom_and_designer_evaluation": "Showroom and Designer Evaluation",
+};
+
+const validateForm = () => {
+  // Check site report
+  if (!siteReportEl || !siteReportEl.value.trim()) {
+    showError("Please fill in the Site Report field.");
+    siteReportEl?.focus();
+    return false;
+  }
+
+  // Check all rating fields
+  for (const field of RATING_FIELDS) {
+    if (!starValues[field] || starValues[field] < 1) {
+      const label = RATING_LABEL_MAP[field] || field;
+      showError(`Please provide a rating for "${label}".`);
+      const container = document.querySelector(`.star-rating[data-field="${field}"]`);
+      if (container) container.scrollIntoView({ behavior: "smooth", block: "center" });
+      return false;
+    }
+  }
+
+  return true;
+};
+
+/* ── Submit Form ── */
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   clearError();
+
+  // Validate mandatory fields
+  if (!validateForm()) {
+    return;
+  }
+
   submitButton.disabled = true;
 
   try {
     const formData = new FormData();
     formData.append("token", token);
-    
-    fields.forEach((field) => {
-      const value = fieldElements[field].value || "";
-      formData.append(field, value);
+
+    // Append star ratings as ERPNext rate values (0.2 increments)
+    let totalStars = 0;
+    let ratingCount = 0;
+
+    RATING_FIELDS.forEach((field) => {
+      const stars = starValues[field] || 0;
+      if (stars > 0) {
+        formData.append(field, starToRate(stars));
+        totalStars += stars;
+        ratingCount++;
+      }
     });
+
+    // Append site report
+    formData.append("site_report", siteReportEl.value.trim());
+
+    // Append remarks
+    REMARK_FIELDS.forEach((field) => {
+      const el = document.getElementById(field);
+      if (el && el.value) formData.append(field, el.value);
+    });
+
+    const averageStars = ratingCount > 0 ? totalStars / ratingCount : 0;
 
     const xhr = new XMLHttpRequest();
     xhr.open("POST", window.location.origin + "/api/method/customer_feedback.customer_feedback.api.feedback.submit_feedback");
-    
-    xhr.onload = function() {
-      console.log("Response status:", xhr.status);
-      console.log("Response text:", xhr.responseText);
-      
+
+    xhr.onload = function () {
       if (xhr.status === 200) {
         try {
           const data = JSON.parse(xhr.responseText);
-          console.log("Parsed data:", data);
-          
-          if (data.exc) {
-            throw new Error(normalizeError(data));
-          }
-          
-          const repliedDate = data.message?.customer_replied_date;
-          showStatus(`Thank you! Notes submitted on ${repliedDate}.`);
+          if (data.exc) throw new Error(normalizeError(data));
+
+          const certificateUrl = data.message?.certificate_url || null;
           setReadOnly(true);
+          showStatus("Thank you! Your notes have been submitted.");
+          showThankYouPopup(averageStars, certificateUrl);
         } catch (err) {
-          console.error("Parse error:", err);
           showError(err?.message || "Unable to process response.");
           submitButton.disabled = false;
         }
       } else {
         try {
           const data = JSON.parse(xhr.responseText);
-          console.error("Error data:", data);
           throw new Error(normalizeError(data));
         } catch (err) {
-          console.error("Error:", err);
           showError(err?.message || "Unable to submit feedback.");
           submitButton.disabled = false;
         }
       }
     };
-    
-    xhr.onerror = function() {
+
+    xhr.onerror = function () {
       showError("Network error. Please try again.");
       submitButton.disabled = false;
     };
-    
+
     xhr.send(formData);
-    
   } catch (err) {
     showError(err?.message || "Unable to submit feedback.");
     submitButton.disabled = false;
   }
 });
 
+/* ── Init ── */
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", loadContext);
 } else {
