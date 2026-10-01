@@ -24,7 +24,9 @@ app_license = "mit"
 # Includes in <head>
 # ------------------
 before_request = ["customer_feedback.utils.csrf.handle_csrf_for_guest_endpoints"]
-
+app_include_js = [
+    "/assets/customer_feedback/js/followup_popup.js?ver=1.5"
+]
 # include js, css files in header of desk.html
 # app_include_css = "/assets/customer_feedback/css/customer_feedback.css"
 # app_include_js = "/assets/customer_feedback/js/customer_feedback.js"
@@ -141,8 +143,12 @@ before_request = ["customer_feedback.utils.csrf.handle_csrf_for_guest_endpoints"
 doc_events = {
 	"Project": {
 		"on_update": "customer_feedback.customer_feedback.api.project_hooks.on_project_update",
-	}
+	},
+	"Comment": {
+        "before_insert": "customer_feedback.api.followup.before_comment_insert"
+    }
 }
+
 
 # Scheduled Tasks
 # ---------------
